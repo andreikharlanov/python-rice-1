@@ -8,22 +8,30 @@ import simplegui
 import random
 
 # helper function to start and restart the game
+
+range = 100
+
 def new_game():
     global secret_number
-    secret_number = random.randrange(0, 100)
+    global range
+
+    print "New game started."
+    print "Range is [0, %d)" % range
+
+    secret_number = random.randrange(0, int(range))
+    # print secret number for testing
+    print "Secret number is:", secret_number
 
 # define event handlers for control panel
 def range100():
-    # button that changes the range to [0,100) and starts a new game
-
-
-    # remove this when you add your code
-    pass
+    global range
+    range = 100
+    new_game()
 
 def range1000():
-    # button that changes the range to [0,1000) and starts a new game
-
-    pass
+    global range
+    range = 1000
+    new_game()
 
 def input_guess(guess):
     print "Guess was", int(guess)
@@ -34,7 +42,8 @@ def input_guess(guess):
     else:
         print "Correct"
 
-
+def restart_button():
+    new_game()
 
 # create frame
 
@@ -43,6 +52,10 @@ frame = simplegui.create_frame("Guess the number", 300, 200)
 # register event handlers for control elements and start frame
 
 inp_guess = frame.add_input("Guess", input_guess, 50)
+
+frame.add_button("Restart game", restart_button)
+frame.add_button("Range is [0,100)", range100)
+frame.add_button("Range is [0,1000)", range1000)
 
 frame.start()
 
