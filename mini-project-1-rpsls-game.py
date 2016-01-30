@@ -1,5 +1,7 @@
 # Rock-paper-scissors-lizard-Spock template
 
+# My CodeSkulptor url http://www.codeskulptor.org/#user41_Xb0z1FEj86dKrkT.py
+
 # The key idea of this program is to equate the strings
 # "rock", "paper", "scissors", "lizard", "Spock" to numbers
 # as follows:
