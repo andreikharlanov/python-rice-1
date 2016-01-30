@@ -2,7 +2,7 @@
 # input will come from buttons and an input field
 # all output for the game will be printed in the console
 
-
+import simplegui
 
 # helper function to start and restart the game
 def new_game():
@@ -31,11 +31,16 @@ def input_guess(guess):
     pass
 
 
+
 # create frame
 
+frame = simplegui.create_frame("Guess the number", 300, 200)
 
 # register event handlers for control elements and start frame
 
+inp_guess = frame.add_input("Guess", input_guess, 50)
+
+frame.start()
 
 # call new_game
 new_game()
