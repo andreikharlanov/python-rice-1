@@ -2,7 +2,7 @@
 # input will come from buttons and an input field
 # all output for the game will be printed in the console
 
-# http://www.codeskulptor.org/#user41_7nhiRwmDpFKWLzZ_0.py
+# http://www.codeskulptor.org/#user41_P8MdhbnPe1jF5Tr.py
 
 import simplegui
 import random
@@ -24,6 +24,15 @@ def new_game():
     secret_number = random.randrange(0, int(range))
     # print secret number for testing
     # print "Secret number is:", secret_number
+
+def set_remaining_guesses_for_the_next_game():
+    global range
+    global remaining_guesses
+
+    if range == 100:
+        remaining_guesses = 7
+    elif range == 1000:
+        remaining_guesses = 10
 
 # define event handlers for control panel
 def range100():
@@ -59,27 +68,15 @@ def input_guess(guess):
         print "\nYou have %d remaining guesses." % remaining_guesses
     else:
         print "Correct"
-        if range == 100:
-            remaining_guesses = 7
-        elif range == 1000:
-            remaining_guesses = 10
+        set_remaining_guesses_for_the_next_game()
         new_game()
 
     if remaining_guesses == 0:
-        if range == 100:
-            remaining_guesses = 7
-        elif range == 1000:
-            remaining_guesses = 10
+        set_remaining_guesses_for_the_next_game()
         new_game()
 
 def restart_button():
-    global range
-    global remaining_guesses
-
-    if range == 100:
-        remaining_guesses = 7
-    elif range == 1000:
-        remaining_guesses = 10
+    set_remaining_guesses_for_the_next_game()
     new_game()
 
 # create frame
