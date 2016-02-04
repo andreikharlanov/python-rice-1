@@ -81,7 +81,7 @@ frame.start()
 
 def f1(a, b):
     """Returns True exactly when a is False and b is True."""
-    if not a == False and b == True:
+    if a == False and b == True:
         return True
     else:
         return False
