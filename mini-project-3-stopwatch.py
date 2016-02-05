@@ -1,12 +1,17 @@
 # template for "Stopwatch: The Game"
-# http://www.codeskulptor.org/#user41_Y4u2I0qspz_2.py
+# http://www.codeskulptor.org/#user41_Y4u2I0qspz_4.py
+
+# template for "Stopwatch: The Game"
 
 import simplegui
 
 # define global variables
 
 time = 0
-print_win = False
+wins = 0
+stops = 0
+is_stoped = False
+
 
 # define helper function format that converts time
 # in tenths of seconds into formatted string A:BC.D
@@ -20,11 +25,24 @@ def format(t):
 
 # define event handlers for buttons; "Start", "Stop", "Reset"
 def start_handler():
+    global is_stoped
+    is_stoped = False
     timer.start()
 
 def stop_handler():
     global print_win
+    global stops, wins
+    global is_stoped
+
+    if not is_stoped:
+        stops += 1
+
     timer.stop()
+
+    is_stoped = True
+
+    if time % 10 == 0:
+        wins += 1
 
 
 def reset_handler():
@@ -42,8 +60,7 @@ def timer_handler():
 # define draw handler
 def draw_time(canvas):
     canvas.draw_text(format(time), (100, 100), 25, "White")
-    if print_win == True:
-        canvas.draw_text("You win!", (100, 150), 25, "White")
+    canvas.draw_text(str(wins) + "/" + str(stops), (200, 20), 20, "Green")
 
 
 # create frame
