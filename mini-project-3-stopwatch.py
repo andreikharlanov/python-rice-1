@@ -36,13 +36,12 @@ def stop_handler():
 
     if not is_stoped:
         stops += 1
+        if time % 10 == 0:
+            wins += 1
 
     timer.stop()
 
     is_stoped = True
-
-    if time % 10 == 0:
-        wins += 1
 
 
 def reset_handler():
