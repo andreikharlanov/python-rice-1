@@ -36,6 +36,9 @@ def new_game():
     global paddle1_pos, paddle2_pos, paddle1_vel, paddle2_vel  # these are numbers
     global score1, score2  # these are ints
 
+    paddle1_pos = [HALF_PAD_WIDTH, HEIGHT / 2]
+    paddle2_pos = [WIDTH - HALF_PAD_WIDTH, HEIGHT / 2]
+
     direction = random.randrange(0, 2)
     if direction == 0:
         spawn_ball(LEFT)
@@ -82,6 +85,26 @@ def draw(canvas):
     # update paddle's vertical position, keep paddle on the screen
 
     # draw paddles
+
+    # left paddle
+    canvas.draw_polygon([
+        [0, paddle1_pos[1] - HALF_PAD_HEIGHT],
+        [PAD_WIDTH, paddle1_pos[1] - HALF_PAD_HEIGHT],
+        [PAD_WIDTH, paddle1_pos[1] + HALF_PAD_HEIGHT],
+        [0, paddle1_pos[1] + HALF_PAD_HEIGHT]],
+        2,
+        "Red",
+        "Red")
+
+    # right paddle
+    canvas.draw_polygon([
+        [WIDTH - PAD_WIDTH, paddle2_pos[1] - HALF_PAD_HEIGHT],
+        [WIDTH, paddle2_pos[1] - HALF_PAD_HEIGHT],
+        [WIDTH, paddle2_pos[1] + HALF_PAD_HEIGHT],
+        [WIDTH - PAD_WIDTH, paddle2_pos[1] + HALF_PAD_HEIGHT]],
+        2,
+        "Red",
+        "Red")
 
     # determine whether paddle and ball collide
 
