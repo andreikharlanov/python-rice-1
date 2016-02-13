@@ -172,7 +172,7 @@ def keyup(key):
     elif key == simplegui.KEY_MAP["w"]:
         paddle1_vel = 0
     elif key == simplegui.KEY_MAP["s"]:
-        paddle2_vel = 0
+        paddle1_vel = 0
     else:
         pass
 
