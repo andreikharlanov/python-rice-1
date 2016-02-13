@@ -109,6 +109,8 @@ def draw(canvas):
     # determine whether paddle and ball collide
 
     # draw scores
+    canvas.draw_text(str(score1), (140, 80), 60, "White")
+    canvas.draw_text(str(score2), (440, 80), 60, "White")
 
 def keydown(key):
     global paddle1_vel, paddle2_vel
