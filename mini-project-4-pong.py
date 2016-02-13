@@ -18,6 +18,8 @@ RIGHT = True
 # if direction is RIGHT, the ball's velocity is upper right, else upper left
 def spawn_ball(direction):
     global ball_pos, ball_vel # these are vectors stored as lists
+    ball_pos = [WIDTH / 2, HEIGHT / 2]
+    ball_vel = [1, 1]
 
 
 # define event handlers
@@ -35,8 +37,11 @@ def draw(canvas):
     canvas.draw_line([WIDTH - PAD_WIDTH, 0],[WIDTH - PAD_WIDTH, HEIGHT], 1, "White")
 
     # update ball
+    ball_pos[0] += VELOCITY[0]
+    ball_pos[1] += VELOCITY[1]
 
     # draw ball
+    canvas.draw_circle(BALL_POSITION, 20, 2, "Red")
 
     # update paddle's vertical position, keep paddle on the screen
 
@@ -63,5 +68,3 @@ frame.set_keyup_handler(keyup)
 # start frame
 new_game()
 frame.start()
-
-#
