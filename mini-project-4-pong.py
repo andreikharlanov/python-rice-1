@@ -67,16 +67,6 @@ def draw(canvas):
     elif ball_pos[1] >= HEIGHT - ball_radius: # floor
         ball_vel[1] = - ball_vel[1]
 
-    elif ball_pos[0] >= WIDTH - PAD_WIDTH - ball_radius: # right wall
-        score1 += 1
-        print score1, score2
-        spawn_ball(LEFT)
-
-    elif ball_pos[0] <= PAD_WIDTH + ball_radius: # left wall
-        score2 += 1
-        print score1, score2
-        spawn_ball(RIGHT)
-
     else:
         pass
 
@@ -129,6 +119,29 @@ def draw(canvas):
         "Red")
 
     # determine whether paddle and ball collide
+
+    # if the x coordinate of ball's center is in distance == radius from gutter and
+    # the y coordinate of ball's center is in range
+    # [paddle2_pos - HALF_PAD_HEIGHT, paddle2_pos - HALF_PAD_HEIGHT], then
+    # change the x vector of the ball's velocity to -x
+
+    # left side
+    if ball_pos[0] - ball_radius <= PAD_WIDTH: # the ball is touching the left gutter
+        if ball_pos[1] > (paddle1_pos[1] - HALF_PAD_HEIGHT) and ball_pos[1] < (paddle1_pos[1] + HALF_PAD_HEIGHT): # there is a paddle
+            ball_vel[0] = - ball_vel[0]
+        else: # there is no paddle
+            score2 += 1
+            spawn_ball(RIGHT)
+
+    # right side
+    elif ball_pos[0] + ball_radius >= WIDTH - PAD_WIDTH: # the ball is touching the right gutter
+        if ball_pos[1] > (paddle2_pos[1] - HALF_PAD_HEIGHT) and ball_pos[1] < (paddle2_pos[1] + HALF_PAD_HEIGHT): # there is a paddle
+            ball_vel[0] = - ball_vel[0]
+        else: # there is no paddle
+            score1 += 1
+            spawn_ball(LEFT)
+    else:
+        pass
 
     # draw scores
     canvas.draw_text(str(score1), (140, 80), 60, "White")
