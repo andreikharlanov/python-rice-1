@@ -14,13 +14,21 @@ HALF_PAD_WIDTH = PAD_WIDTH / 2
 HALF_PAD_HEIGHT = PAD_HEIGHT / 2
 LEFT = False
 RIGHT = True
+ball_radius = 20
+
+score1, score2 = 0, 0
 
 # initialize ball_pos and ball_vel for new bal in middle of table
 # if direction is RIGHT, the ball's velocity is upper right, else upper left
 def spawn_ball(direction):
     global ball_pos, ball_vel # these are vectors stored as lists
+
     ball_pos = [WIDTH / 2, HEIGHT / 2]
-    ball_vel = [1, -1]
+
+    if direction is True:
+        ball_vel = [random.randrange(120, 240) / 60, - random.randrange(60, 180) / 60]
+    else:
+        ball_vel = [- random.randrange(120, 240) / 60, - random.randrange(60, 180) / 60]
 
 
 # define event handlers
@@ -28,7 +36,11 @@ def new_game():
     global paddle1_pos, paddle2_pos, paddle1_vel, paddle2_vel  # these are numbers
     global score1, score2  # these are ints
 
-    spawn_ball(LEFT)
+    direction = random.randrange(0, 2)
+    if direction == 0:
+        spawn_ball(LEFT)
+    if direction == 1:
+        spawn_ball(RIGHT)
 
 
 def draw(canvas):
@@ -44,8 +56,28 @@ def draw(canvas):
     ball_pos[0] += ball_vel[0]
     ball_pos[1] += ball_vel[1]
 
+    if ball_pos[1] <= 0 + ball_radius: # ceiling
+        ball_vel[1] = - ball_vel[1]
+
+    elif ball_pos[1] >= HEIGHT - ball_radius: # floor
+        ball_vel[1] = - ball_vel[1]
+
+    elif ball_pos[0] >= WIDTH - PAD_WIDTH - ball_radius: # right wall
+        score1 += 1
+        print score1, score2
+        spawn_ball(LEFT)
+
+    elif ball_pos[0] <= PAD_WIDTH + ball_radius: # left wall
+        score2 += 1
+        print score1, score2
+        spawn_ball(RIGHT)
+
+    else:
+        pass
+
+
     # draw ball
-    canvas.draw_circle(ball_pos, 20, 2, "Red")
+    canvas.draw_circle(ball_pos, ball_radius, 2, "Red")
 
     # update paddle's vertical position, keep paddle on the screen
 
@@ -67,7 +99,6 @@ frame = simplegui.create_frame("Pong", WIDTH, HEIGHT)
 frame.set_draw_handler(draw)
 frame.set_keydown_handler(keydown)
 frame.set_keyup_handler(keyup)
-
 
 # start frame
 new_game()
