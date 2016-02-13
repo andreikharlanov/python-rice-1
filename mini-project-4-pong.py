@@ -1,5 +1,5 @@
 # Implementation of classic arcade game Pong
-# http://www.codeskulptor.org/#user41_JNlI9IshBy_0.py
+# http://www.codeskulptor.org/#user41_JNlI9IshBy_15.py
 
 import simplegui
 import random
@@ -17,7 +17,6 @@ RIGHT = True
 ball_radius = 20
 paddle1_vel = 0
 paddle2_vel = 0
-
 score1, score2 = 0, 0
 
 # initialize ball_pos and ball_vel for new bal in middle of table
@@ -37,6 +36,8 @@ def spawn_ball(direction):
 def new_game():
     global paddle1_pos, paddle2_pos, paddle1_vel, paddle2_vel  # these are numbers
     global score1, score2  # these are ints
+
+    score1, score2 = 0, 0
 
     paddle1_pos = [HALF_PAD_WIDTH, HEIGHT / 2]
     paddle2_pos = [WIDTH - HALF_PAD_WIDTH, HEIGHT / 2]
@@ -72,7 +73,7 @@ def draw(canvas):
 
 
     # draw ball
-    canvas.draw_circle(ball_pos, ball_radius, 2, "Red")
+    canvas.draw_circle(ball_pos, ball_radius, 2, "White", "White")
 
     # update paddle's vertical position, keep paddle on the screen
     # if paddle 2 moves down and the bottom part of the paddle is above the bottom,
@@ -105,8 +106,8 @@ def draw(canvas):
         [PAD_WIDTH, paddle1_pos[1] + HALF_PAD_HEIGHT],
         [0, paddle1_pos[1] + HALF_PAD_HEIGHT]],
         2,
-        "Red",
-        "Red")
+        "White",
+        "White")
 
     # right paddle
     canvas.draw_polygon([
@@ -115,8 +116,8 @@ def draw(canvas):
         [WIDTH, paddle2_pos[1] + HALF_PAD_HEIGHT],
         [WIDTH - PAD_WIDTH, paddle2_pos[1] + HALF_PAD_HEIGHT]],
         2,
-        "Red",
-        "Red")
+        "White",
+        "White")
 
     # determine whether paddle and ball collide
 
@@ -128,7 +129,7 @@ def draw(canvas):
     # left side
     if ball_pos[0] - ball_radius <= PAD_WIDTH: # the ball is touching the left gutter
         if ball_pos[1] > (paddle1_pos[1] - HALF_PAD_HEIGHT) and ball_pos[1] < (paddle1_pos[1] + HALF_PAD_HEIGHT): # there is a paddle
-            ball_vel[0] = - ball_vel[0]
+            ball_vel[0] = - ball_vel[0] * 1.1
         else: # there is no paddle
             score2 += 1
             spawn_ball(RIGHT)
@@ -136,7 +137,7 @@ def draw(canvas):
     # right side
     elif ball_pos[0] + ball_radius >= WIDTH - PAD_WIDTH: # the ball is touching the right gutter
         if ball_pos[1] > (paddle2_pos[1] - HALF_PAD_HEIGHT) and ball_pos[1] < (paddle2_pos[1] + HALF_PAD_HEIGHT): # there is a paddle
-            ball_vel[0] = - ball_vel[0]
+            ball_vel[0] = - ball_vel[0] * 1.1
         else: # there is no paddle
             score1 += 1
             spawn_ball(LEFT)
