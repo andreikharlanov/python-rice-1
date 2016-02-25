@@ -45,15 +45,17 @@ def remove_odd4(numbers):
 
 def remove_last_odd(numbers):
     has_odd = False
-    last_odd = 0
+    last_odd = None
+    i = -1
     for num in numbers:
+        i += 1
         if num % 2 == 1:
             has_odd = True
-            last_odd = num
+            last_odd = i
+    print last_odd
 
     if has_odd:
-        numbers.remove(last_odd)
-
+        numbers.pop(last_odd)
 
 def run():
     numbers = [1, 7, 2, 34, 8, 7, 2, 5, 14, 22, 93, 48, 76, 15, 7]
