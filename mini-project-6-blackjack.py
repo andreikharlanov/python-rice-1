@@ -55,6 +55,38 @@ class Hand:
     def draw(self, canvas, pos):
         pass	# draw a hand on the canvas, use the draw method for cards
 
+# define deck class
+class Deck:
+    def __init__(self):
+        # create a Deck object
+        self.deck = []
+        for suit in SUITS:
+            for rank in RANKS:
+                card = Card(suit, rank)
+                self.deck.append(card)
+
+    def shuffle(self):
+        # shuffle the deck
+        random.shuffle(self.deck)
+
+    def deal_card(self):
+        # deal a card object from the deck
+        return self.deck.pop()
+
+    def __str__(self):
+        # return a string representing the deck
+        deck_readable = ""
+        i = 0
+        for card in self.deck:
+            i += 1
+            deck_readable += str(card)
+            if i < len(self.deck):
+                deck_readable += ", "
+            else:
+                deck_readable += "."
+
+        return "Deck contains: " + deck_readable
+
 # define draw handler
 def draw(canvas):
     one_card.draw(canvas, (155, 90))
