@@ -24,6 +24,37 @@ class Card:
                     CARD_CENTER[1] + j * CARD_SIZE[1]]
         canvas.draw_image(card_image, card_pos, CARD_SIZE, loc, CARD_SIZE)
 
+# define hand class
+class Hand:
+    def __init__(self):
+        # create Hand object
+        self.cards_in_hand = []
+
+    def __str__(self):
+        # return a string representation of a hand
+        cards_in_hand_readable = ""
+        for card in self.cards_in_hand:
+            cards_in_hand_readable += str(card)
+            if len(self.cards_in_hand) == 1:
+                cards_in_hand_readable += "."
+            elif len(self.cards_in_hand) > 1:
+                cards_in_hand_readable += ", "
+            else:
+                pass
+
+        return "Hand contains: " + cards_in_hand_readable
+
+    def add_card(self, card):
+        # add a card object to a hand
+        self.cards_in_hand.append(card)
+
+    def get_value(self):
+        # count aces as 1, if the hand has an ace, then add 10 to hand value if it doesn't bust
+        pass	# compute the value of the hand, see Blackjack video
+
+    def draw(self, canvas, pos):
+        pass	# draw a hand on the canvas, use the draw method for cards
+
 # define draw handler
 def draw(canvas):
     one_card.draw(canvas, (155, 90))
