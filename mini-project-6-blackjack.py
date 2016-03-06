@@ -1,16 +1,3 @@
-# demo for drawing using tiled images
-
-import simplegui
-
-# define globals for cards
-RANKS = ('A', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K')
-SUITS = ('C', 'S', 'H', 'D')
-
-# card sprite - 950x392
-CARD_CENTER = (36.5, 49)
-CARD_SIZE = (73, 98)
-card_image = simplegui.load_image("http://commondatastorage.googleapis.com/codeskulptor-assets/cards.jfitz.png")
-
 # define card class
 class Card:
     def __init__(self, suit, rank):
@@ -230,7 +217,7 @@ def draw(canvas):
         canvas.draw_text("Hit or stand?", (103, 550), 20, "White")
     else:
         canvas.draw_text("New deal?", (103, 550), 20, "White")
-        
+
 # initialization frame
 frame = simplegui.create_frame("Blackjack", 600, 600)
 frame.set_canvas_background("Green")
