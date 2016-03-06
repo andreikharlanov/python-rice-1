@@ -116,7 +116,7 @@ def draw(canvas):
 frame = simplegui.create_frame("Card draw", 300, 200)
 frame.set_draw_handler(draw)
 
-# createa card
+# create card
 one_card = Card('H', 'A')
 
 frame.start()
