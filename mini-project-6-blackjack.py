@@ -34,15 +34,17 @@ class Hand:
         # return a string representation of a hand
         cards_in_hand_readable = ""
         for card in self.cards_in_hand:
-            cards_in_hand_readable += str(card)
-            if len(self.cards_in_hand) == 1:
-                cards_in_hand_readable += "."
-            elif len(self.cards_in_hand) > 1:
-                cards_in_hand_readable += ", "
-            else:
-                pass
+            cards_in_hand_readable += str(card) + " "
+            # commented for unit test
+            # if len(self.cards_in_hand) == 1:
+            #     cards_in_hand_readable += "."
+            # elif len(self.cards_in_hand) > 1:
+            #     cards_in_hand_readable += ", "
+            # else:
+            #     pass
 
-        return "Hand contains: " + cards_in_hand_readable
+        # return "Hand contains: " + cards_in_hand_readable
+        return "Hand contains " + cards_in_hand_readable
 
     def add_card(self, card):
         # add a card object to a hand
@@ -50,11 +52,23 @@ class Hand:
 
     def get_value(self):
         # count aces as 1, if the hand has an ace, then add 10 to hand value if it doesn't bust
-        pass	# compute the value of the hand, see Blackjack video
+        # compute the value of the hand, see Blackjack video
+        self.value = 0
+
+        for card in self.cards_in_hand:
+            card_value = VALUES[card.get_rank()]
+            self.value += card_value
+
+
+        for card in self.cards_in_hand:
+            if card.get_rank() == "A":
+                if self.value + 10 <= 21:
+                    self.value += 10
+
+        return self.value
 
     def draw(self, canvas, pos):
         pass	# draw a hand on the canvas, use the draw method for cards
-
 # define deck class
 class Deck:
     def __init__(self):
@@ -79,13 +93,15 @@ class Deck:
         i = 0
         for card in self.deck:
             i += 1
-            deck_readable += str(card)
-            if i < len(self.deck):
-                deck_readable += ", "
-            else:
-                deck_readable += "."
+            deck_readable += str(card) + " "
+            # commented for unit test pass
+            # if i < len(self.deck):
+            #     deck_readable += ", "
+            # else:
+            #     deck_readable += "."
 
-        return "Deck contains: " + deck_readable
+        # return "Deck contains: " + deck_readable
+        return "Deck contains " + deck_readable
 
 # define draw handler
 def draw(canvas):
