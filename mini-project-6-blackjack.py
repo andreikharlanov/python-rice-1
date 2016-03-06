@@ -203,9 +203,34 @@ def stand():
             in_play = False
 
 # define draw handler
+# draw handler
 def draw(canvas):
-    pass
+    global score, outcome, in_play
 
+    canvas.draw_text("Blackjack", (200, 60), 50, "Black")
+
+    # dealer
+    dealer_hand.draw(canvas, [100, 200])
+
+    if in_play:
+        # canvas.draw_image(image, center_source, width_height_source, center_dest, width_height_dest)
+        canvas.draw_image(card_back, (36, 48), (72, 96), (136, 248), (72, 96))
+
+    # player
+    player_hand.draw(canvas, [100, 400])
+
+    # draw score
+    canvas.draw_text("Score is: " + str(score), (400, 150), 20, "White")
+
+    # draw outcome
+    canvas.draw_text(outcome, (100, 350), 20, "White")
+
+    # draw questions
+    if in_play:
+        canvas.draw_text("Hit or stand?", (103, 550), 20, "White")
+    else:
+        canvas.draw_text("New deal?", (103, 550), 20, "White")
+        
 # initialization frame
 frame = simplegui.create_frame("Blackjack", 600, 600)
 frame.set_canvas_background("Green")
