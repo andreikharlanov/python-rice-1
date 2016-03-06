@@ -110,13 +110,18 @@ class Deck:
 
 # define draw handler
 def draw(canvas):
-    one_card.draw(canvas, (155, 90))
+    pass
 
-# define frame and register draw handler
-frame = simplegui.create_frame("Card draw", 300, 200)
+# initialization frame
+frame = simplegui.create_frame("Blackjack", 600, 600)
+frame.set_canvas_background("Green")
+
+#create buttons and canvas callback
+frame.add_button("Deal", deal, 200)
+frame.add_button("Hit",  hit, 200)
+frame.add_button("Stand", stand, 200)
 frame.set_draw_handler(draw)
 
-# create card
-one_card = Card('H', 'A')
-
+# get things rolling
+deal()
 frame.start()
