@@ -110,7 +110,37 @@ class Deck:
 
 # define event handlers for buttons
 def deal():
-    pass
+    global score, outcome, in_play, deck, dealer_hand, player_hand
+
+    if in_play:
+        score -= 1
+        in_play = False
+
+        print "You were still playing when you pressed Deal. You lose."
+        outcome = "You were still playing when you pressed Deal. You lose."
+
+    else:
+        in_play = True
+        outcome = ""
+
+        deck = Deck()
+        deck.shuffle()
+
+        dealer_hand = Hand()
+        player_hand = Hand()
+
+        dealer_hand.add_card(deck.deal_card())
+        dealer_hand.add_card(deck.deal_card())
+
+        player_hand.add_card(deck.deal_card())
+        player_hand.add_card(deck.deal_card())
+
+        print "-" * 15
+        print str(deck) + "\n"
+        print "Dealer " + str(dealer_hand)
+        print "Dealer hand value is " + str(dealer_hand.get_value()) + "\n"
+        print "Player " + str(player_hand)
+        print "Your hand value is "  + str(player_hand.get_value()) + "\n"
 
 def hit():
     pass
