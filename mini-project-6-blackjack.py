@@ -26,15 +26,27 @@ VALUES = {'A':1, '2':2, '3':3, '4':4, '5':5, '6':6, '7':7, '8':8, '9':9, 'T':10,
 # define card class
 class Card:
     def __init__(self, suit, rank):
-        self.rank = rank
-        self.suit = suit
+        if (suit in SUITS) and (rank in RANKS):
+            self.suit = suit
+            self.rank = rank
+        else:
+            self.suit = None
+            self.rank = None
+            print "Invalid card: ", suit, rank
 
-    def draw(self, canvas, loc):
-        i = RANKS.index(self.rank)
-        j = SUITS.index(self.suit)
-        card_pos = [CARD_CENTER[0] + i * CARD_SIZE[0],
-                    CARD_CENTER[1] + j * CARD_SIZE[1]]
-        canvas.draw_image(card_image, card_pos, CARD_SIZE, loc, CARD_SIZE)
+    def __str__(self):
+        return self.suit + self.rank
+
+    def get_suit(self):
+        return self.suit
+
+    def get_rank(self):
+        return self.rank
+
+    def draw(self, canvas, pos):
+        card_loc = (CARD_CENTER[0] + CARD_SIZE[0] * RANKS.index(self.rank),
+                    CARD_CENTER[1] + CARD_SIZE[1] * SUITS.index(self.suit))
+        canvas.draw_image(card_images, card_loc, CARD_SIZE, [pos[0] + CARD_CENTER[0], pos[1] + CARD_CENTER[1]], CARD_SIZE)
 
 # define hand class
 class Hand:
@@ -214,7 +226,6 @@ def stand():
             score -= 1
             in_play = False
 
-# define draw handler
 # draw handler
 def draw(canvas):
     global score, outcome, in_play
