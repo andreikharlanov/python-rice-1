@@ -1,3 +1,18 @@
+# Mini-project #6 - Blackjack
+# http://www.codeskulptor.org/#user41_5W4oJJ9uVR_25.py
+
+import simplegui
+import random
+
+# load card sprite - 936x384 - source: jfitz.com
+CARD_SIZE = (72, 96)
+CARD_CENTER = (36, 48)
+card_images = simplegui.load_image("http://storage.googleapis.com/codeskulptor-assets/cards_jfitz.png")
+
+CARD_BACK_SIZE = (72, 96)
+CARD_BACK_CENTER = (36, 48)
+card_back = simplegui.load_image("http://storage.googleapis.com/codeskulptor-assets/card_jfitz_back.png")
+
 # define card class
 class Card:
     def __init__(self, suit, rank):
