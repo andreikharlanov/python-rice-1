@@ -108,6 +108,16 @@ class Deck:
         # return "Deck contains: " + deck_readable
         return "Deck contains " + deck_readable
 
+# define event handlers for buttons
+def deal():
+    pass
+
+def hit():
+    pass
+
+def stand():
+    pass
+
 # define draw handler
 def draw(canvas):
     pass
