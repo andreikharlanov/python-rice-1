@@ -68,7 +68,12 @@ class Hand:
         return self.value
 
     def draw(self, canvas, pos):
-        pass	# draw a hand on the canvas, use the draw method for cards
+        # draw a hand on the canvas, use the draw method for cards
+
+        for c in self.cards_in_hand:
+            c.draw(canvas, pos)
+            pos[0] += CARD_CENTER[0] * 2 + 10
+
 # define deck class
 class Deck:
     def __init__(self):
