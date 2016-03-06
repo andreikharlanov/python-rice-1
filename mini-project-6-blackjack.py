@@ -163,7 +163,44 @@ def hit():
         in_play = False
 
 def stand():
-    pass
+    global in_play, score, outcome
+    # if hand is in play, repeatedly hit dealer until his hand has value 17 or more
+    if not in_play and player_hand.get_value() > 21:
+        print "You have busted."
+        outcome = "You have busted."
+
+
+    elif not in_play and player_hand.get_value() <= 21:
+        print "This game is ended. Press Deal button."
+        outcome = "This game is ended. Press Deal button."
+
+    else:
+        while dealer_hand.get_value() < 17:
+            dealer_hand.add_card(deck.deal_card())
+
+        # assign a message to outcome, update in_play and score
+        if dealer_hand.get_value() > 21:
+            print "Dealer hand value is " + str(dealer_hand.get_value())
+            print "Dealer has busted. You win."
+            outcome = "Dealer has busted. You win."
+            in_play = False
+            score += 1
+
+        elif dealer_hand.get_value() < player_hand.get_value():
+            print "Dealer hand value is " + str(dealer_hand.get_value())
+            print "Your hand value is "  + str(player_hand.get_value())
+            print "You win."
+            outcome = "Dealer hand value is " + str(dealer_hand.get_value()) + ". Your hand value is "  + str(player_hand.get_value()) + ". You win."
+            score += 1
+            in_play = False
+
+        elif dealer_hand.get_value() >= player_hand.get_value():
+            print "Dealer hand value is " + str(dealer_hand.get_value())
+            print "Your hand value is "  + str(player_hand.get_value())
+            print "You lose."
+            outcome = "Dealer hand value is " + str(dealer_hand.get_value()) + ". Your hand value is "  + str(player_hand.get_value()) + ". You lose."
+            score -= 1
+            in_play = False
 
 # define draw handler
 def draw(canvas):
