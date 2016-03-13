@@ -1,4 +1,4 @@
-# http://www.codeskulptor.org/#user41_b4nrSBkps4_0.py
+# http://www.codeskulptor.org/#user41_b4nrSBkps4_1.py
 
 import simplegui
 import math
@@ -89,7 +89,6 @@ def dist(p,q):
 
 
 # Ship class
-# Ship class
 class Ship:
     def __init__(self, pos, vel, angle, image, info):
         self.pos = [pos[0],pos[1]]
@@ -110,6 +109,8 @@ class Ship:
         self.pos[1] += self.vel[1]
         self.angle += self.angle_vel
 
+    def change_angle(self, new_angle_vel):
+        self.angle_vel = new_angle_vel
 
 # Sprite class
 class Sprite:
@@ -134,7 +135,6 @@ class Sprite:
 
     def update(self):
         pass
-
 
 def draw(canvas):
     global time
@@ -162,6 +162,19 @@ def draw(canvas):
 def rock_spawner():
     pass
 
+# keyboard handler
+def keydown(key):
+    if key == simplegui.KEY_MAP['left']:
+        my_ship.change_angle(0.2)
+    elif key == simplegui.KEY_MAP['right']:
+        my_ship.change_angle(-0.2)
+
+def keyup(key):
+    if key == simplegui.KEY_MAP['left']:
+        my_ship.change_angle(0)
+    elif key == simplegui.KEY_MAP['right']:
+        my_ship.change_angle(0)
+
 # initialize frame
 frame = simplegui.create_frame("Asteroids", WIDTH, HEIGHT)
 
@@ -172,6 +185,9 @@ a_missile = Sprite([2 * WIDTH / 3, 2 * HEIGHT / 3], [-1,1], 0, 0, missile_image,
 
 # register handlers
 frame.set_draw_handler(draw)
+
+frame.set_keydown_handler(keydown)
+frame.set_keyup_handler(keyup)
 
 timer = simplegui.create_timer(1000.0, rock_spawner)
 
