@@ -1,4 +1,5 @@
-# program template for Spaceship
+# http://www.codeskulptor.org/#user41_b4nrSBkps4_0.py
+
 import simplegui
 import math
 import random
@@ -105,7 +106,9 @@ class Ship:
         canvas.draw_image(self.image, self.image_center, self.image_size, self.pos, self.image_size, self.angle)
 
     def update(self):
-        pass
+        self.pos[0] += self.vel[0]
+        self.pos[1] += self.vel[1]
+        self.angle += self.angle_vel
 
 
 # Sprite class
