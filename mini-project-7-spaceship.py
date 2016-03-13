@@ -176,17 +176,17 @@ def rock_spawner():
 
 # keyboard handler
 def keydown(key):
-    if key == simplegui.KEY_MAP['left']:
+    if key == simplegui.KEY_MAP['right']:
         my_ship.change_angle(0.2)
-    elif key == simplegui.KEY_MAP['right']:
+    elif key == simplegui.KEY_MAP['left']:
         my_ship.change_angle(-0.2)
     elif key == simplegui.KEY_MAP['up']:
         my_ship.turn_thrust_on(True)
 
 def keyup(key):
-    if key == simplegui.KEY_MAP['left']:
+    if key == simplegui.KEY_MAP['right']:
         my_ship.change_angle(0)
-    elif key == simplegui.KEY_MAP['right']:
+    elif key == simplegui.KEY_MAP['left']:
         my_ship.change_angle(0)
     elif key == simplegui.KEY_MAP['up']:
         my_ship.turn_thrust_on(False)
