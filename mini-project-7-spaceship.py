@@ -1,4 +1,4 @@
-# program template for Spaceship
+# http://www.codeskulptor.org/#user41_b4nrSBkps4_7.py
 import simplegui
 import math
 import random
@@ -181,7 +181,6 @@ class Sprite:
         elif self.pos[1] > HEIGHT:
             self.pos[1] = 0
 
-
 def draw(canvas):
     global time
 
@@ -206,7 +205,18 @@ def draw(canvas):
 
 # timer handler that spawns a rock
 def rock_spawner():
-    pass
+    global a_rock, WIDTH, HEIGHT
+
+    # generate random position for a sprite
+    pos = [random.randrange(0, WIDTH), random.randrange(0, HEIGHT)]
+
+    # generate random velocity for a sprite
+    vel = [random.randrange(40, 200) / 100.0 * random.choice([1, -1]), random.randrange(40, 200) / 100.0 * random.choice([1, -1])]
+
+    # generate random angular velocity for a sprite
+    ang_vel = random.randrange(5, 10) / 100.0 * random.choice([1, -1])
+
+    a_rock = Sprite(pos, vel, 0, ang_vel, asteroid_image, asteroid_info)
 
 # keyboard handler
 def keydown(key):
