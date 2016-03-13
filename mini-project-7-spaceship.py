@@ -171,6 +171,16 @@ class Sprite:
         self.pos[1] += self.vel[1]
         self.angle += self.angle_vel
 
+        # make sprite's position to wrap around the screen when the sprite goes off the edge
+        if self.pos[0] < 0:
+            self.pos[0] = WIDTH
+        elif self.pos[0] > WIDTH:
+            self.pos[0] = 0
+        elif self.pos[1] < 0:
+            self.pos[1] = HEIGHT
+        elif self.pos[1] > HEIGHT:
+            self.pos[1] = 0
+
 
 def draw(canvas):
     global time
