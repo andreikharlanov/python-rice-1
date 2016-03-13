@@ -119,6 +119,16 @@ class Ship:
             self.vel[0] += forward_vector[0] * 0.05
             self.vel[1] += forward_vector[1] * 0.05
 
+        # make ship's position to wrap around the screen when the ship goes off the edge
+        if self.pos[0] < 0:
+            self.pos[0] = WIDTH
+        elif self.pos[0] > WIDTH:
+            self.pos[0] = 0
+        elif self.pos[1] < 0:
+            self.pos[1] = HEIGHT
+        elif self.pos[1] > HEIGHT:
+            self.pos[1] = 0
+
     def change_angle(self, new_angle_vel):
         self.angle_vel = new_angle_vel
 
