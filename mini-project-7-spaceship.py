@@ -1,5 +1,4 @@
-# http://www.codeskulptor.org/#user41_b4nrSBkps4_1.py
-
+# program template for Spaceship
 import simplegui
 import math
 import random
@@ -102,7 +101,10 @@ class Ship:
         self.radius = info.get_radius()
 
     def draw(self,canvas):
-        canvas.draw_image(self.image, self.image_center, self.image_size, self.pos, self.image_size, self.angle)
+        if not self.thrust:
+            canvas.draw_image(self.image, self.image_center, self.image_size, self.pos, self.image_size, self.angle)
+        else:
+            canvas.draw_image(self.image, [self.image_center[0] + self.image_size[0], self.image_center[1]], self.image_size, self.pos, self.image_size, self.angle)
 
     def update(self):
         self.pos[0] += self.vel[0]
@@ -111,6 +113,9 @@ class Ship:
 
     def change_angle(self, new_angle_vel):
         self.angle_vel = new_angle_vel
+
+    def turn_thrust_on(self, on_off):
+        self.thrust = on_off
 
 # Sprite class
 class Sprite:
@@ -135,6 +140,7 @@ class Sprite:
 
     def update(self):
         pass
+
 
 def draw(canvas):
     global time
@@ -168,12 +174,16 @@ def keydown(key):
         my_ship.change_angle(0.2)
     elif key == simplegui.KEY_MAP['right']:
         my_ship.change_angle(-0.2)
+    elif key == simplegui.KEY_MAP['up']:
+        my_ship.turn_thrust_on(True)
 
 def keyup(key):
     if key == simplegui.KEY_MAP['left']:
         my_ship.change_angle(0)
     elif key == simplegui.KEY_MAP['right']:
         my_ship.change_angle(0)
+    elif key == simplegui.KEY_MAP['up']:
+        my_ship.turn_thrust_on(False)
 
 # initialize frame
 frame = simplegui.create_frame("Asteroids", WIDTH, HEIGHT)
