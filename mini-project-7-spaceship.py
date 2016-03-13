@@ -1,4 +1,4 @@
-# program template for Spaceship
+# http://www.codeskulptor.org/#user41_b4nrSBkps4_9.py
 import simplegui
 import math
 import random
