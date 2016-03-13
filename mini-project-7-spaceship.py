@@ -129,6 +129,10 @@ class Ship:
         elif self.pos[1] > HEIGHT:
             self.pos[1] = 0
 
+        # add friction
+        self.vel[0] *= 0.997
+        self.vel[1] *= 0.997
+
     def change_angle(self, new_angle_vel):
         self.angle_vel = new_angle_vel
 
