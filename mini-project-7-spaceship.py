@@ -1,4 +1,4 @@
-# http://www.codeskulptor.org/#user41_b4nrSBkps4_7.py
+# program template for Spaceship
 import simplegui
 import math
 import random
@@ -144,6 +144,19 @@ class Ship:
         else:
             ship_thrust_sound.rewind()
 
+    def shoot(self):
+        global a_missile
+
+        # compute the forward vector pointing in the direction the ship is facing
+        forward_vector = angle_to_vector(self.angle)
+
+        # compute missile position
+        missile_pos = [self.pos[0] + forward_vector[0] * 40,self.pos[1] + forward_vector[1] * 40]
+
+        # compute missile velocity
+        missile_vel = [self.vel[0] + forward_vector[0] * 3, self.vel[1] + forward_vector[1] * 3]
+
+        a_missile = Sprite(missile_pos, missile_vel, 0, 0, missile_image, missile_info, missile_sound)
 
 # Sprite class
 class Sprite:
@@ -182,7 +195,7 @@ class Sprite:
             self.pos[1] = 0
 
 def draw(canvas):
-    global time
+    global time, score, lives
 
     # animiate background
     time += 1
@@ -230,6 +243,9 @@ def keydown(key):
         my_ship.change_angle(-0.2)
     elif key == simplegui.KEY_MAP['up']:
         my_ship.turn_thrust_on(True)
+    elif key == simplegui.KEY_MAP['space']:
+        my_ship.shoot()
+
 
 def keyup(key):
     if key == simplegui.KEY_MAP['right']:
@@ -245,7 +261,7 @@ frame = simplegui.create_frame("Asteroids", WIDTH, HEIGHT)
 # initialize ship and two sprites
 my_ship = Ship([WIDTH / 2, HEIGHT / 2], [0, 0], 0, ship_image, ship_info)
 a_rock = Sprite([WIDTH / 3, HEIGHT / 3], [1, 1], 0, 0.05, asteroid_image, asteroid_info)
-a_missile = Sprite([2 * WIDTH / 3, 2 * HEIGHT / 3], [-1,1], 0, 0, missile_image, missile_info, missile_sound)
+a_missile = Sprite([WIDTH + 1, HEIGHT + 1], [0,0], 0, 0, missile_image, missile_info)
 
 # register handlers
 frame.set_draw_handler(draw)
