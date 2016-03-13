@@ -88,6 +88,7 @@ def dist(p,q):
 
 
 # Ship class
+# Ship class
 class Ship:
     def __init__(self, pos, vel, angle, image, info):
         self.pos = [pos[0],pos[1]]
@@ -101,7 +102,7 @@ class Ship:
         self.radius = info.get_radius()
 
     def draw(self,canvas):
-        canvas.draw_circle(self.pos, self.radius, 1, "White", "White")
+        canvas.draw_image(self.image, self.image_center, self.image_size, self.pos, self.image_size, self.angle)
 
     def update(self):
         pass
