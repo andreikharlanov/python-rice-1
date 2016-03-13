@@ -117,6 +117,12 @@ class Ship:
     def turn_thrust_on(self, on_off):
         self.thrust = on_off
 
+        if on_off == True:
+            ship_thrust_sound.play()
+        else:
+            ship_thrust_sound.rewind()
+
+
 # Sprite class
 class Sprite:
     def __init__(self, pos, vel, ang, ang_vel, image, info, sound = None):
