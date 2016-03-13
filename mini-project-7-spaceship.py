@@ -111,6 +111,14 @@ class Ship:
         self.pos[1] += self.vel[1]
         self.angle += self.angle_vel
 
+        # compute the forward vector pointing in the direction the ship is facing
+        forward_vector = angle_to_vector(self.angle)
+
+        # accelerate the ship in the direction of forward vector when the ship is thrusting
+        if self.thrust:
+            self.vel[0] += forward_vector[0] * 0.05
+            self.vel[1] += forward_vector[1] * 0.05
+
     def change_angle(self, new_angle_vel):
         self.angle_vel = new_angle_vel
 
