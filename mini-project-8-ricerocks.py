@@ -1,4 +1,5 @@
-# program template for Spaceship
+# My version of RiceRocks game
+# http://www.codeskulptor.org/#user41_b4nrSBkps4_12.py
 import simplegui
 import math
 import random
@@ -11,6 +12,7 @@ lives = 3
 time = 0
 started = False
 rocks = set([])
+missiles = set([])
 
 class ImageInfo:
     def __init__(self, center, size, radius = 0, lifespan = None, animated = False):
@@ -158,7 +160,9 @@ class Ship:
         # compute missile velocity
         missile_vel = [self.vel[0] + forward_vector[0] * 3, self.vel[1] + forward_vector[1] * 3]
 
-        a_missile = Sprite(missile_pos, missile_vel, 0, 0, missile_image, missile_info, missile_sound)
+        new_missile = Sprite(missile_pos, missile_vel, 0, 0, missile_image, missile_info, missile_sound)
+
+        missiles.add(new_missile)
 
 # Sprite class
 class Sprite:
@@ -220,14 +224,18 @@ def draw(canvas):
 
     # draw ship and sprites
     my_ship.draw(canvas)
-    a_missile.draw(canvas)
+
+    for missile in missiles:
+        missile.draw(canvas)
 
     for rock in rocks:
         rock.draw(canvas)
 
     # update ship and sprites
     my_ship.update()
-    a_missile.update()
+
+    for missile in missiles:
+        missile.update()
 
     for rock in rocks:
         rock.update()
@@ -283,10 +291,8 @@ def keyup(key):
 # initialize frame
 frame = simplegui.create_frame("Asteroids", WIDTH, HEIGHT)
 
-# initialize ship and two sprites
+# initialize ship
 my_ship = Ship([WIDTH / 2, HEIGHT / 2], [0, 0], 0, ship_image, ship_info)
-# a_rock = Sprite([WIDTH / 3, HEIGHT / 3], [1, 1], 0, 0.05, asteroid_image, asteroid_info)
-a_missile = Sprite([WIDTH + 1, HEIGHT + 1], [0,0], 0, 0, missile_image, missile_info)
 
 # register handlers
 frame.set_draw_handler(draw)
