@@ -10,6 +10,7 @@ score = 0
 lives = 3
 time = 0
 started = False
+rocks = set([])
 
 class ImageInfo:
     def __init__(self, center, size, radius = 0, lifespan = None, animated = False):
@@ -219,13 +220,17 @@ def draw(canvas):
 
     # draw ship and sprites
     my_ship.draw(canvas)
-    a_rock.draw(canvas)
     a_missile.draw(canvas)
+
+    for rock in rocks:
+        rock.draw(canvas)
 
     # update ship and sprites
     my_ship.update()
-    a_rock.update()
     a_missile.update()
+
+    for rock in rocks:
+        rock.update()
 
     # draw scores and lives
     canvas.draw_text("You have " + str(lives) + " lives", (20, 30), 20, 'White')
@@ -239,7 +244,7 @@ def draw(canvas):
 
 # timer handler that spawns a rock
 def rock_spawner():
-    global a_rock, WIDTH, HEIGHT
+    global rocks, WIDTH, HEIGHT
 
     # generate random position for a sprite
     pos = [random.randrange(0, WIDTH), random.randrange(0, HEIGHT)]
@@ -250,7 +255,10 @@ def rock_spawner():
     # generate random angular velocity for a sprite
     ang_vel = random.randrange(5, 10) / 100.0 * random.choice([1, -1])
 
-    a_rock = Sprite(pos, vel, 0, ang_vel, asteroid_image, asteroid_info)
+    new_rock = Sprite(pos, vel, 0, ang_vel, asteroid_image, asteroid_info)
+
+    if len(rocks) < 12:
+        rocks.add(new_rock)
 
 # keyboard handler
 def keydown(key):
@@ -277,7 +285,7 @@ frame = simplegui.create_frame("Asteroids", WIDTH, HEIGHT)
 
 # initialize ship and two sprites
 my_ship = Ship([WIDTH / 2, HEIGHT / 2], [0, 0], 0, ship_image, ship_info)
-a_rock = Sprite([WIDTH / 3, HEIGHT / 3], [1, 1], 0, 0.05, asteroid_image, asteroid_info)
+# a_rock = Sprite([WIDTH / 3, HEIGHT / 3], [1, 1], 0, 0.05, asteroid_image, asteroid_info)
 a_missile = Sprite([WIDTH + 1, HEIGHT + 1], [0,0], 0, 0, missile_image, missile_info)
 
 # register handlers
