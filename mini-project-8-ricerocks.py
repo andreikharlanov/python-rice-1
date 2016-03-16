@@ -1,4 +1,4 @@
-# http://www.codeskulptor.org/#user41_b4nrSBkps4_9.py
+# program template for Spaceship
 import simplegui
 import math
 import random
@@ -9,6 +9,7 @@ HEIGHT = 600
 score = 0
 lives = 3
 time = 0
+started = False
 
 class ImageInfo:
     def __init__(self, center, size, radius = 0, lifespan = None, animated = False):
@@ -194,6 +195,16 @@ class Sprite:
         elif self.pos[1] > HEIGHT:
             self.pos[1] = 0
 
+# mouseclick handlers that reset UI and conditions whether splash image is drawn
+def click(pos):
+    global started
+    center = [WIDTH / 2, HEIGHT / 2]
+    size = splash_info.get_size()
+    inwidth = (center[0] - size[0] / 2) < pos[0] < (center[0] + size[0] / 2)
+    inheight = (center[1] - size[1] / 2) < pos[1] < (center[1] + size[1] / 2)
+    if (not started) and inwidth and inheight:
+        started = True
+
 def draw(canvas):
     global time, score, lives
 
@@ -219,6 +230,12 @@ def draw(canvas):
     # draw scores and lives
     canvas.draw_text("You have " + str(lives) + " lives", (20, 30), 20, 'White')
     canvas.draw_text("Your score is: " + str(score), (650, 30), 20, 'White')
+
+    # draw splash screen if not started
+    if not started:
+        canvas.draw_image(splash_image, splash_info.get_center(),
+                          splash_info.get_size(), [WIDTH / 2, HEIGHT / 2],
+                          splash_info.get_size())
 
 # timer handler that spawns a rock
 def rock_spawner():
@@ -268,6 +285,8 @@ frame.set_draw_handler(draw)
 
 frame.set_keydown_handler(keydown)
 frame.set_keyup_handler(keyup)
+
+frame.set_mouseclick_handler(click)
 
 timer = simplegui.create_timer(1000.0, rock_spawner)
 
