@@ -1,5 +1,5 @@
 # My version of RiceRocks game
-# http://www.codeskulptor.org/#user41_b4nrSBkps4_15.py
+# http://www.codeskulptor.org/#user41_b4nrSBkps4_16.py
 import simplegui
 import math
 import random
@@ -164,6 +164,12 @@ class Ship:
 
         missiles.add(new_missile)
 
+    def get_radius(self):
+        return self.radius
+
+    def get_pos(self):
+        return self.pos
+
 # Sprite class
 class Sprite:
     def __init__(self, pos, vel, ang, ang_vel, image, info, sound = None):
@@ -202,6 +208,20 @@ class Sprite:
         elif self.pos[1] > HEIGHT:
             self.pos[1] = 0
 
+    def get_radius(self):
+        return self.radius
+
+    def get_pos(self):
+        return self.pos
+
+    def collide(self, other_object):
+        distance = math.sqrt((self.pos[0] - other_object.get_pos[0]) ** 2 + (self.pos[1] - other_object.get_pos[1]) ** 2)
+
+        if distance <= (self.radius + other_object.get_radius):
+            return True
+        else:
+            return False
+
 # mouseclick handlers that reset UI and conditions whether splash image is drawn
 def click(pos):
     global started
@@ -229,8 +249,11 @@ def draw(canvas):
     my_ship.update()
 
     # draw and update sprite groups
-    process_set(rocks, canvas)
-    process_set(missiles, canvas)
+    process_sprite_group(rocks, canvas)
+    process_sprite_group(missiles, canvas)
+
+    # check if ship collided with rocks
+    group_collide(rocks, my_ship)
 
     # draw scores and lives
     canvas.draw_text("You have " + str(lives) + " lives", (20, 30), 20, 'White')
@@ -243,12 +266,25 @@ def draw(canvas):
                           splash_info.get_size())
 
 # sprite group processing helper
-def process_sprite_group(set, canvas):
-    new_set = set.copy()
-
-    for item in set:
+def process_sprite_group(group, canvas):
+    for item in group:
         item.draw(canvas)
         item.update()
+
+# helper function to check collision of a group and a sprite
+def group_collide(group, other_object):
+    new_group = group.copy()
+    collision = False
+
+    for item in new_group:
+        if item.collide(other_object) == True:
+            collision = True
+            group.difference_update(item)
+
+    if collision:
+        return True
+    else:
+        return False
 
 # timer handler that spawns a rock
 def rock_spawner():
