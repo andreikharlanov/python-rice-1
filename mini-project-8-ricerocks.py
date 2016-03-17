@@ -310,13 +310,17 @@ def group_collide(group, other_object):
 
 # timer handler that spawns a rock
 def rock_spawner():
-    global rocks, started, my_ship, WIDTH, HEIGHT
+    global rocks, started, my_ship, score, WIDTH, HEIGHT
 
     # generate random position for a sprite
     pos = [random.randrange(0, WIDTH), random.randrange(0, HEIGHT)]
 
     # generate random velocity for a sprite
-    vel = [random.randrange(40, 200) / 100.0 * random.choice([1, -1]), random.randrange(40, 200) / 100.0 * random.choice([1, -1])]
+    # make higher velocity for higher score
+    score_coef = 1.0 + score / 100.0
+
+    vel = [score_coef * random.randrange(40, 200) / 100.0 * random.choice([1, -1]),
+           score_coef * random.randrange(40, 200) / 100.0 * random.choice([1, -1])]
 
     # generate random angular velocity for a sprite
     ang_vel = random.randrange(5, 10) / 100.0 * random.choice([1, -1])
