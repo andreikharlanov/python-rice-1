@@ -268,9 +268,14 @@ def draw(canvas):
 
 # sprite group processing helper
 def process_sprite_group(group, canvas):
-    for item in group:
+    group_copy = group.copy()
+
+    for item in group_copy:
         item.draw(canvas)
         item.update()
+
+        if item.age >= item.lifespan:
+            group.remove(item)
 
 # helper function to check collision of a group and a sprite
 def group_collide(group, other_object):
