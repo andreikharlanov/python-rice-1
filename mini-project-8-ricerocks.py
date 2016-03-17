@@ -215,9 +215,9 @@ class Sprite:
         return self.pos
 
     def collide(self, other_object):
-        distance = math.sqrt((self.pos[0] - other_object.get_pos[0]) ** 2 + (self.pos[1] - other_object.get_pos[1]) ** 2)
+        distance = math.sqrt((self.pos[0] - other_object.get_pos()[0]) ** 2 + (self.pos[1] - other_object.get_pos()[1]) ** 2)
 
-        if distance <= (self.radius + other_object.get_radius):
+        if distance <= (self.radius + other_object.get_radius()):
             return True
         else:
             return False
@@ -279,7 +279,7 @@ def group_collide(group, other_object):
     for item in new_group:
         if item.collide(other_object) == True:
             collision = True
-            group.difference_update(item)
+            group.remove(item)
 
     if collision:
         return True
