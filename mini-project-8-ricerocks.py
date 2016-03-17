@@ -310,7 +310,7 @@ def group_collide(group, other_object):
 
 # timer handler that spawns a rock
 def rock_spawner():
-    global rocks, started, WIDTH, HEIGHT
+    global rocks, started, my_ship, WIDTH, HEIGHT
 
     # generate random position for a sprite
     pos = [random.randrange(0, WIDTH), random.randrange(0, HEIGHT)]
@@ -323,7 +323,15 @@ def rock_spawner():
 
     new_rock = Sprite(pos, vel, 0, ang_vel, asteroid_image, asteroid_info)
 
-    if started and len(rocks) < 12:
+    distance_new_rock_my_ship = dist(new_rock.get_pos(), my_ship.get_pos())
+    collision_dist = new_rock.get_radius() + my_ship.get_radius()
+
+    if distance_new_rock_my_ship > collision_dist * 2:
+        safe_dist = True
+    else:
+        safe_dist = False
+
+    if started and len(rocks) < 12 and safe_dist:
         rocks.add(new_rock)
 
 # keyboard handler
