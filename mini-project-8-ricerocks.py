@@ -1,5 +1,5 @@
 # My version of RiceRocks game
-# http://www.codeskulptor.org/#user41_b4nrSBkps4_12.py
+# http://www.codeskulptor.org/#user41_b4nrSBkps4_13.py
 import simplegui
 import math
 import random
@@ -199,6 +199,10 @@ class Sprite:
             self.pos[1] = HEIGHT
         elif self.pos[1] > HEIGHT:
             self.pos[1] = 0
+
+        # decrease Sprite's lifespan
+        if self.lifespan != float('inf') and self.lifespan > 0:
+            self.lifespan -= 1
 
 # mouseclick handlers that reset UI and conditions whether splash image is drawn
 def click(pos):
