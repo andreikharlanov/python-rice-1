@@ -256,6 +256,11 @@ def draw(canvas):
     if group_collide(rocks, my_ship):
         lives -= 1
 
+    # check if missile collided with rocks, add score if collided
+    for missile in missiles:
+        if group_collide(rocks, missile):
+            score += 10
+
     # draw scores and lives
     canvas.draw_text("You have " + str(lives) + " lives", (20, 30), 20, 'White')
     canvas.draw_text("Your score is: " + str(score), (650, 30), 20, 'White')
