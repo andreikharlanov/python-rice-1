@@ -1,5 +1,5 @@
 # My version of RiceRocks game
-# http://www.codeskulptor.org/#user41_b4nrSBkps4_13.py
+# http://www.codeskulptor.org/#user41_b4nrSBkps4_14.py
 import simplegui
 import math
 import random
@@ -226,23 +226,13 @@ def draw(canvas):
     canvas.draw_image(debris_image, center, size, (wtime - WIDTH / 2, HEIGHT / 2), (WIDTH, HEIGHT))
     canvas.draw_image(debris_image, center, size, (wtime + WIDTH / 2, HEIGHT / 2), (WIDTH, HEIGHT))
 
-    # draw ship and sprites
+    # draw and update ship
     my_ship.draw(canvas)
-
-    for missile in missiles:
-        missile.draw(canvas)
-
-    for rock in rocks:
-        rock.draw(canvas)
-
-    # update ship and sprites
     my_ship.update()
 
-    for missile in missiles:
-        missile.update()
-
-    for rock in rocks:
-        rock.update()
+    # draw and update sprite groups
+    process_set(rocks, canvas)
+    process_set(missiles, canvas)
 
     # draw scores and lives
     canvas.draw_text("You have " + str(lives) + " lives", (20, 30), 20, 'White')
@@ -253,6 +243,12 @@ def draw(canvas):
         canvas.draw_image(splash_image, splash_info.get_center(),
                           splash_info.get_size(), [WIDTH / 2, HEIGHT / 2],
                           splash_info.get_size())
+
+# set processing helper
+def process_set(set, canvas):
+    for item in set:
+        item.draw(canvas)
+        item.update()
 
 # timer handler that spawns a rock
 def rock_spawner():
