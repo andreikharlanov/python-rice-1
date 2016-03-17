@@ -253,7 +253,8 @@ def draw(canvas):
     process_sprite_group(missiles, canvas)
 
     # check if ship collided with rocks
-    group_collide(rocks, my_ship)
+    if group_collide(rocks, my_ship):
+        lives -= 1
 
     # draw scores and lives
     canvas.draw_text("You have " + str(lives) + " lives", (20, 30), 20, 'White')
