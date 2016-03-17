@@ -280,7 +280,7 @@ def process_sprite_group(group, canvas):
         item.update()
 
         if item.age >= item.lifespan:
-            group.remove(item)
+            group.discard(item)
 
 # helper function to check collision of a group and a sprite
 def group_collide(group, other_object):
@@ -290,7 +290,7 @@ def group_collide(group, other_object):
     for item in new_group:
         if item.collide(other_object) == True:
             collision = True
-            group.remove(item)
+            group.discard(item)
 
     if collision:
         return True
