@@ -8,7 +8,7 @@ import random
 WIDTH = 800
 HEIGHT = 600
 score = 0
-lives = 3
+lives = 5
 time = 0
 started = False
 rocks = set([])
@@ -224,14 +224,14 @@ class Sprite:
 
 # mouseclick handlers that reset UI and conditions whether splash image is drawn
 def click(pos):
-    global started, lives, score
+    global started, lives, score, my_ship
     center = [WIDTH / 2, HEIGHT / 2]
     size = splash_info.get_size()
     inwidth = (center[0] - size[0] / 2) < pos[0] < (center[0] + size[0] / 2)
     inheight = (center[1] - size[1] / 2) < pos[1] < (center[1] + size[1] / 2)
 
     if (not started) and inwidth and inheight:
-        lives = 3
+        lives = 5
         score = 0
         started = True
         soundtrack.rewind()
@@ -239,7 +239,7 @@ def click(pos):
 
 
 def draw(canvas):
-    global time, score, lives, started, rocks, missiles
+    global time, score, lives, started, rocks, missiles, my_ship
 
     # animiate background
     time += 1
@@ -281,6 +281,9 @@ def draw(canvas):
     if lives == 0:
         rocks = set([])
         started = False
+        ship_thrust_sound.pause()
+        my_ship = Ship([WIDTH / 2, HEIGHT / 2], [0, 0], 0, ship_image, ship_info)
+
 
 # sprite group processing helper
 def process_sprite_group(group, canvas):
