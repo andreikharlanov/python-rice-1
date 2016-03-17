@@ -224,16 +224,22 @@ class Sprite:
 
 # mouseclick handlers that reset UI and conditions whether splash image is drawn
 def click(pos):
-    global started
+    global started, lives, score
     center = [WIDTH / 2, HEIGHT / 2]
     size = splash_info.get_size()
     inwidth = (center[0] - size[0] / 2) < pos[0] < (center[0] + size[0] / 2)
     inheight = (center[1] - size[1] / 2) < pos[1] < (center[1] + size[1] / 2)
+
     if (not started) and inwidth and inheight:
+        lives = 3
+        score = 0
         started = True
+        soundtrack.rewind()
+        soundtrack.play()
+
 
 def draw(canvas):
-    global time, score, lives
+    global time, score, lives, started, rocks, missiles
 
     # animiate background
     time += 1
@@ -271,6 +277,11 @@ def draw(canvas):
                           splash_info.get_size(), [WIDTH / 2, HEIGHT / 2],
                           splash_info.get_size())
 
+    # stop game is all lives are lost
+    if lives == 0:
+        rocks = set([])
+        started = False
+
 # sprite group processing helper
 def process_sprite_group(group, canvas):
     group_copy = group.copy()
@@ -299,7 +310,7 @@ def group_collide(group, other_object):
 
 # timer handler that spawns a rock
 def rock_spawner():
-    global rocks, WIDTH, HEIGHT
+    global rocks, started, WIDTH, HEIGHT
 
     # generate random position for a sprite
     pos = [random.randrange(0, WIDTH), random.randrange(0, HEIGHT)]
@@ -312,7 +323,7 @@ def rock_spawner():
 
     new_rock = Sprite(pos, vel, 0, ang_vel, asteroid_image, asteroid_info)
 
-    if len(rocks) < 12:
+    if started and len(rocks) < 12:
         rocks.add(new_rock)
 
 # keyboard handler
