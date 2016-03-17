@@ -1,5 +1,5 @@
 # My version of RiceRocks game
-# http://www.codeskulptor.org/#user41_b4nrSBkps4_14.py
+# http://www.codeskulptor.org/#user41_b4nrSBkps4_15.py
 import simplegui
 import math
 import random
@@ -190,6 +190,8 @@ class Sprite:
         self.pos[1] += self.vel[1]
         self.angle += self.angle_vel
 
+        self.age += 1
+
         # make sprite's position to wrap around the screen when the sprite goes off the edge
         if self.pos[0] < 0:
             self.pos[0] = WIDTH
@@ -199,10 +201,6 @@ class Sprite:
             self.pos[1] = HEIGHT
         elif self.pos[1] > HEIGHT:
             self.pos[1] = 0
-
-        # decrease Sprite's lifespan
-        if self.lifespan != float('inf') and self.lifespan > 0:
-            self.lifespan -= 1
 
 # mouseclick handlers that reset UI and conditions whether splash image is drawn
 def click(pos):
@@ -244,8 +242,10 @@ def draw(canvas):
                           splash_info.get_size(), [WIDTH / 2, HEIGHT / 2],
                           splash_info.get_size())
 
-# set processing helper
-def process_set(set, canvas):
+# sprite group processing helper
+def process_sprite_group(set, canvas):
+    new_set = set.copy()
+
     for item in set:
         item.draw(canvas)
         item.update()
