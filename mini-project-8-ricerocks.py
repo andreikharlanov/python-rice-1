@@ -1,5 +1,5 @@
 # My version of RiceRocks game
-# http://www.codeskulptor.org/#user41_b4nrSBkps4_21.py
+# http://www.codeskulptor.org/#user41_b4nrSBkps4_23.py
 import simplegui
 import math
 import random
