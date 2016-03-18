@@ -266,8 +266,17 @@ def draw(canvas):
     score += group_group_collide(missiles, rocks) * 10
 
     # draw scores and lives
-    canvas.draw_text("You have " + str(lives) + " lives", (20, 30), 20, 'White')
-    canvas.draw_text("Your score is: " + str(score), (650, 30), 20, 'White')
+    if lives == 3:
+        lives_color = "Green"
+    elif lives == 2:
+        lives_color = "Yellow"
+    elif lives == 1:
+        lives_color = "Red"
+    else:
+        lives_color = "White"
+
+    canvas.draw_text("Lives: " + str(lives), (20, 40), 40, lives_color )
+    canvas.draw_text("Score: " + str(score), (620, 40), 40, 'White')
 
     # draw splash screen if not started
     if not started:
