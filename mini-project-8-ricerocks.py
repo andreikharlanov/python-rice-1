@@ -8,7 +8,7 @@ import random
 WIDTH = 800
 HEIGHT = 600
 score = 0
-lives = 5
+lives = 3
 time = 0
 started = False
 rocks = set([])
@@ -231,7 +231,7 @@ def click(pos):
     inheight = (center[1] - size[1] / 2) < pos[1] < (center[1] + size[1] / 2)
 
     if (not started) and inwidth and inheight:
-        lives = 5
+        lives = 3
         score = 0
         started = True
         soundtrack.rewind()
