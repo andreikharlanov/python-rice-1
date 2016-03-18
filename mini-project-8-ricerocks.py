@@ -262,10 +262,8 @@ def draw(canvas):
     if group_collide(rocks, my_ship):
         lives -= 1
 
-    # check if missile collided with rocks, add score if collided
-    for missile in missiles:
-        if group_collide(rocks, missile):
-            score += 10
+    # checking if missile collided with rocks, add score if collided
+    score += group_group_collide(missiles, rocks) * 10
 
     # draw scores and lives
     canvas.draw_text("You have " + str(lives) + " lives", (20, 30), 20, 'White')
@@ -310,6 +308,20 @@ def group_collide(group, other_object):
         return True
     else:
         return False
+
+# helper function to check collision of members of two groups
+def group_group_collide(group1, group2):
+    group1_copy = group1.copy()
+    group2_copy = group2.copy()
+    collisions = 0
+
+    for sprite in group1_copy:
+        if group_collide(group2, sprite):
+            group1.discard(sprite)
+            collisions += 1
+
+    return collisions
+
 
 # timer handler that spawns a rock
 def rock_spawner():
